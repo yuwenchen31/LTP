@@ -11,7 +11,7 @@ import xml.dom.minidom
 import re
 
 
-#%%
+#%% adapted from https://github.com/VineethaChacko/Author-Profiling-1/blob/master/dataLoader.py
 def get_data(dataFolder, testFile):
     xmlFile = os.path.join(dataFolder, testFile)
     ## creating document object model from the xml file
@@ -31,7 +31,7 @@ def get_data(dataFolder, testFile):
             Data.append(' ')
     return Data, Language, authorID
 
-#%%
+#%% adapted from https://github.com/VineethaChacko/Author-Profiling-1/blob/master/dataLoader.py
 file = open('/home/eileen/Documents/Language Technology Project/en/truth.txt', 'r+') 
 Text = file.read()
 file.close()
@@ -91,7 +91,8 @@ stemmer = PorterStemmer()
 
 for i in range(0,len(authorTextList)):
     for j in range(0,len(authorTextList[i])):
-        authorTextList[i][j] = [stemmer.stem(w) for w in authorTextList[i][j]] 
+        authorTextList[i][j] = [stemmer.stem(w) for w in authorTextList[i][j]]
+        authorTextList[i][j] = " ".join(authorTextList[i][j])
         
         
 
@@ -99,8 +100,13 @@ for i in range(0,len(authorTextList)):
     
 import pickle
 
+#%%
 #save
 with open('genderList', 'wb') as f:
     pickle.dump(genderList, f)
 
-    
+with open('authorTextList', 'wb') as f:
+    pickle.dump(authorTextList, f)
+
+with open('authorIDList', 'wb') as f:
+    pickle.dump(authorIDList, f)
